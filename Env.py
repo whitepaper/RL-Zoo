@@ -3,7 +3,7 @@ import numpy as np
 UP, DOWN, LEFT, RIGHT = 0, 1, 2, 3
 
 class GridWorld(object):
-    def __init__(self, shape=[3, 3], target=[2, 2]):
+    def __init__(self, shape=[3, 3], target=[1, 2]):
         self.shape = shape
         self.nS = np.prod(shape)
         self.nA = 4
