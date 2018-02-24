@@ -1,8 +1,6 @@
 import numpy as np
 
-DISCOUNT_FACTOR = 1
 UP, DOWN, LEFT, RIGHT = 0, 1, 2, 3
-
 
 class GridWorld(object):
     def __init__(self, shape=[3, 3], target=[2, 2]):
@@ -54,54 +52,6 @@ class GridWorld(object):
         self.s = s
         return (s, r, d, {"prob": p})
 
-
-class Agent:
-    def __init__(self, env):
-        self.env = env
-        self.V = np.zeros(env.nS)
-
-    def next_best_action(self, s, V):
-        action_values = np.zeros(env.nA)
-        for a in range(env.nA):
-            for prob, next_state, reward, done in env.P[s][a]:
-                action_values[a] += prob * (reward + DISCOUNT_FACTOR * V[next_state])
-        return np.argmax(action_values), np.max(action_values)
-
-    def optimize(self):
-        THETA = 0.0001
-        delta = float("inf")
-
-        while delta > THETA:
-            delta = 0
-            print(np.reshape(self.V, env.shape))
-            for s in range(env.nS):
-                best_action, best_action_value = self.next_best_action(s, self.V)
-                delta = max(delta, np.abs(best_action_value - self.V[s]))
-                self.V[s] = best_action_value
-
-        policy = np.zeros(env.nS)
-        for s in range(env.nS):
-            best_action, best_action_value = self.next_best_action(s, self.V)
-            policy[s] = best_action
-
-        return policy
-
-
-def format_policy(policy):
-    policy_str = []
-    for idx in range(len(policy)):
-        entry = policy[idx]
-        if entry == UP:
-            policy_str.append('U')
-        elif entry == DOWN:
-            policy_str.append('D')
-        elif entry == LEFT:
-            policy_str.append('L')
-        else:
-            policy_str.append('R')
-    return policy_str
-
-env = GridWorld()
-agent = Agent(env)
-policy = agent.optimize()
-print(np.reshape(format_policy(policy), env.shape))
+    def get_action_name(self, a):
+        action2name = {UP: 'U', DOWN: 'D', LEFT: 'L', RIGHT:'R'}
+        return action2name[a]
