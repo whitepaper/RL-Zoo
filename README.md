@@ -1,2 +1,2 @@
 # RL-Zoo
-Implementations of Reinforcement Learning Algorithm
+Implementation of Reinforcement Learning Algorithm
